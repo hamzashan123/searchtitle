@@ -32,7 +32,7 @@
             <div class="card-block">
               <h4 class="card-title">Total Uploaded Files</h4>
               <h6 class="card-subtitle text-muted">6</h6>
-              <a href="#" class="card-link">View List</a>
+              <a href="{{route('admin.documents.documentlist')}}" class="card-link">View List</a>
             </div>
           </div>
         </div>
