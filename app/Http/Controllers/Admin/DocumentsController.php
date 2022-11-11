@@ -47,24 +47,22 @@ class DocumentsController extends Controller
         //dd($request);
         $uploadedFile = $request->file('name');
         $filename = time() . $uploadedFile->getClientOriginalName();
-        Storage::disk('local')->put('/public/documents/'. $filename, File::get($uploadedFile));
+        Storage::disk('local')->put('/public/documents/' . $filename, File::get($uploadedFile));
         $document = Documents::create([
             'name' => $filename,
             'type' => 'pdf'
         ]);
-        
-        return redirect()->route('admin.documents.index');
 
+        return redirect()->route('admin.documents.index');
     }
 
-  
+
     public function destroy(Documents $document)
     {
-     
+
 
         $document->delete();
 
         return back();
-
     }
 }
