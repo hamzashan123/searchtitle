@@ -58,7 +58,7 @@
                             <a class="btn btn-xs btn-primary"    href="{{  asset('/storage/documents/'.$document->name)  }}" download>
                                Download
                             </a>
-                            <a class="btn btn-xs btn-secondary"    href="">
+                            <a class="btn btn-xs btn-secondary"    href="{{route('admin.document.email',['id' => $document->id])}}">
                                Send to Email
                             </a>
                         

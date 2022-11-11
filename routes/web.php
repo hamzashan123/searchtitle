@@ -23,5 +23,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('documents', 'DocumentsController');
     Route::get('userDocumentlist', 'DocumentsController@userDocumentlist')->name('document.list');
     
-
+    Route::get('documentlist', 'DocumentsController@getDocuments')->name('documents.getdocuments');
+    Route::get('document-mail/{id}', 'DocumentsController@sendDocumentEmail')->name('document.email');
+    
 });
