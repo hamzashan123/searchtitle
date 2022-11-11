@@ -16,26 +16,6 @@
             <a href="{{route('admin.users.index')}}" class="card-link">View List</a>
           </div>
         </div>
-        @endcan
-        <div class="col-md-4">
-          <div class="card">
-            <div class="card-block">
-              <h4 class="card-title">Total Users</h4>
-              <h6 class="card-subtitle text-muted">6</h6>
-              <a href="{{route('admin.users.index')}}" class="card-link">View List</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card">
-            <div class="card-block">
-              <h4 class="card-title">Total Uploaded Files</h4>
-              <h6 class="card-subtitle text-muted">6</h6>
-              <a href="{{route('admin.documents.getdocuments')}}" class="card-link">View List</a>
-            </div>
-          </div>
-        </div>
-        </div>
       </div>
       @endcan
       <div class="col-md-4">
@@ -52,7 +32,7 @@
           <div class="card-block">
             <h4 class="card-title">Total Uploaded Files</h4>
             <h6 class="card-subtitle text-muted">6</h6>
-            <a href="{{route('admin.documents.index')}}" class="card-link">View List</a>
+            <a href="{{route('admin.documents.getdocuments')}}" class="card-link">View List</a>
           </div>
         </div>
       </div>
