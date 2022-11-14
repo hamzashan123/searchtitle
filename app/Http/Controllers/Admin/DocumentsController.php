@@ -18,7 +18,8 @@ class DocumentsController extends Controller
         return view('admin.documents.index', compact('documents'));
     }
 
-    public function getDocuments(){
+    public function getDocuments()
+    {
         $documents = Documents::all();
         return view('admin.documents.index', compact('documents'));
     }
@@ -28,14 +29,15 @@ class DocumentsController extends Controller
         return view('admin.documents.documentlist', compact('documents'));
     }
 
-    public function sendDocumentEmail(int $documentid){
-        $document = Documents::where('id',$documentid)->first();
+    public function sendDocumentEmail(int $documentid)
+    {
+        $document = Documents::where('id', $documentid)->first();
         $data = [
-            'documenturl' => asset('/storage/documents/'.$document->name),
+            'documenturl' => asset('/storage/documents/' . $document->name),
             'message' => 'message for document!'
         ];
-        Mail::to('hamzashan123@gmail.com')->send(new EmailToUser($data));
-        return redirect()->back()->with('success','Email Send Successfully!');
+        Mail::to('admin@searchtitle.com')->send(new EmailToUser($data));
+        return redirect()->back()->with('success', 'Email Send Successfully!');
     }
     public function create()
     {
