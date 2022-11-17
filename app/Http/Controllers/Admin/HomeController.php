@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use DB;
 use App\User;
 use App\Documents;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController
 {
@@ -17,7 +18,7 @@ class HomeController
         $users = User::whereHas('roles', function ($query) use ($Users){
             $query->where('title',$Users);
         })->count();
-        $documents = Documents::count();
+        $documents = Documents::where('user_id',Auth::user()->id)->count();
 
         
         return view('home',compact('usersAdmin','users','documents'));
