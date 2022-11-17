@@ -22,6 +22,12 @@
                     Type
                 </th>
                 <th>
+                    Assigned User
+                </th>
+                <th>
+                    Category
+                </th>
+                <th>
                     Created at
                 </th>
                 <th>
@@ -46,6 +52,14 @@
                     </td>
                     <td>
                         {{ $document->type ?? '' }}
+                       
+                    </td>
+                    <td>
+                        {{ $document->email ?? '' }}
+                       
+                    </td>
+                    <td>
+                        {{ $document->category ?? '' }}
                        
                     </td>
                     <td>

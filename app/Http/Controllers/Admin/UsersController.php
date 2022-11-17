@@ -11,7 +11,8 @@ use App\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+
 class UsersController extends Controller
 {
     public function index()
@@ -22,7 +23,7 @@ class UsersController extends Controller
         if(Auth::user()->roles[0]->title == 'User'){
             $users = User::whereDoesntHave('roles', function ($q) {
                 $q->where('title', 'Admin');
-            })->limit(100)->get();
+            })->limit(100)->where('register_by', Auth::user()->id)->get();
             
         }
        
@@ -44,6 +45,7 @@ class UsersController extends Controller
 
     public function store(StoreUserRequest $request)
     {
+        $request->merge(['register_by' => Auth::user()->id]);
         $user = User::create($request->all());
         $user->roles()->sync($request->input('roles', []));
 

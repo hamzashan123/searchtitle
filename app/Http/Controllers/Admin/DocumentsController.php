@@ -9,12 +9,15 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use App\Mail\EmailToUser;
 use Mail;
+use App\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DocumentsController extends Controller
 {
     public function index()
     {
-        $documents = Documents::all();
+        $documents = DB::table('documents')->join('users','users.id','=','documents.user_id')->select('documents.*','users.email')->get();
         return view('admin.documents.index', compact('documents'));
     }
 
@@ -25,7 +28,7 @@ class DocumentsController extends Controller
     }
     public function userDocumentlist()
     {
-        $documents = Documents::all();
+        $documents = DB::table('documents')->where('user_id',Auth::user()->id)->join('users','users.id','=','documents.user_id')->select('documents.*','users.email')->get();
         return view('admin.documents.documentlist', compact('documents'));
     }
 
@@ -41,19 +44,31 @@ class DocumentsController extends Controller
     }
     public function create()
     {
-        return view('admin.documents.create');
+        $users = User::whereDoesntHave('roles', function ($q) {
+            $q->where('title', 'Admin');
+        })->get();
+        
+        return view('admin.documents.create',compact('users'));
     }
 
     public function store(Request $request)
     {
-        //dd($request);
+        //dd(count($request->users));
         $uploadedFile = $request->file('name');
         $filename = time() . $uploadedFile->getClientOriginalName();
         Storage::disk('local')->put('/public/documents/' . $filename, File::get($uploadedFile));
-        $document = Documents::create([
-            'name' => $filename,
-            'type' => 'pdf'
-        ]);
+        if(count($request->users) > 0){
+            foreach($request->users as $user){
+                $document = Documents::create([
+                    'name' => $filename,
+                    'type' => 'pdf',
+                    'user_id' => $user,
+                    'category' => $request->category
+                ]);
+            }
+            
+        }
+       
 
         return redirect()->route('admin.documents.index');
     }

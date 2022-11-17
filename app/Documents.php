@@ -8,5 +8,5 @@ class Documents extends Model
 {
     protected $table = 'documents';
 
-    protected $fillable = ['name','type'];
+    protected $fillable = ['name','type','user_id','category'];
 }
