@@ -16,7 +16,7 @@ class HomeController
             $query->where('title',$Administrator);
         })->count();
         $users = User::whereHas('roles', function ($query) use ($Users){
-            $query->where('title',$Users);
+            $query->where('register_by',Auth::user()->id)->where('title',$Users);
         })->count();
         $documents = Documents::where('user_id',Auth::user()->id)->count();
 
